@@ -3,17 +3,23 @@
 import React, { ReactElement } from 'react'
 import { useState, useEffect } from 'react'
 
-interface TeamInfo {
+interface Team {
     team: {
         id: string
         displayName: string
         shortDisplayName: string
         abbreviation: string
+    };
+}
+
+interface LeagueProp {
+    League: {
+        team: Team[];
     }
 }
 
-export default function TeamList(): ReactElement {
-    const [teamList, setTeamList] = useState<TeamInfo[]>([])
+export default function TeamList({League}: LeagueProp): ReactElement {
+    const [teamList, setTeamList] = useState<Team[]>([])
     
     
     useEffect(() => {
@@ -22,29 +28,35 @@ export default function TeamList(): ReactElement {
             setTeamList(data);
         }
         loadTeamsList();
-    }, []);
+    }, [League]);
 
     return (
         <div>
             <h1>teams:</h1>
-            {
-                teamList.map((team) => (
-                    <li key={team.team.id}>
-                        <p>{team.team.displayName}</p>
-                        <p>{team.team.abbreviation}</p>
-                    </li>
-                ))
-            }
+            <div className='grid grid-cols-3 p-2 mx-12'>
+                    {
+                        teamList.map((Team) => (
+                            <div key={Team.team.id}>
+                                <p>{Team.team.displayName}</p>
+                                <p>{Team.team.abbreviation}</p>
+                            </div>
+                        ))
+                    }
+            </div>
         </div>
     )
 }
 
-async function fetchTeams(): Promise<TeamInfo[]> {
+async function fetchTeams(): Promise<Team[]> {
     try {
-        const api = 'http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams'
+        // Base API: http://site.api.espn.com/apis/site/v2/sports/ -- the rest are extensions
+        // mlb team path = 'baseball/mlb/teams'
+        // nhl  team path =' '/hockey/nhl/teams'
+        // for scores, they're all structured the same. just "scoreboard after the league" eg. "/hockey/nhl/scoreboard"
+        const api = 'http://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams'
         const response = await fetch(api)
         const data = await response.json()
-        const teams: TeamInfo[] = data.sports[0].leagues[0].teams
+        const teams: Team[] = data.sports[0].leagues[0].teams
         return teams
     }
     catch (error) {
