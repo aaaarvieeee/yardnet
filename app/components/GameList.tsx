@@ -2,13 +2,11 @@
 
 import React, { ReactElement } from 'react'
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
-
+import Image, { StaticImageData } from 'next/image'
 
 interface Game {
     id: string
     date: string
-    shortName: string
     status: {
         displayClock: string
         period: number
@@ -20,49 +18,55 @@ interface Game {
                 id: string
                 location: string
                 displayName: string
-                logo: ImageBitmap
+                logo: StaticImageData
             };
         }[];
     }[];
 }
 
-export default function GameList(): ReactElement {
+interface LeagueProp {
+    League: string
+    Date?: string
+}
+
+export default function GameList({League, Date}: LeagueProp): ReactElement {
     const [gameList, setGameList] = useState<Game[]>([])
-    const [count, setCount] = useState(0)
 
     useEffect(() => {
         const loadGamesList = async () => {
-            const data = await fetchGames()
+            const data = await fetchGames({League, Date})
             setGameList(data);
         }
         loadGamesList();
         const refreshInterval = setInterval(loadGamesList, 5000)
         return () => clearInterval(refreshInterval)
-    }, []);
+    }, [League, Date]);
 
     return (
         <div>
             <h1>teams:</h1>
-            <div className='grid grid-cols-3 p-2 mx-12 border-2 border-e-red-50'>
+            <div className='grid grid-cols-2 p-2 mx-12 border-2 border-e-red-50'>
                 {gameList.map((Game) => (
-                    <div key={Game.id} className='p-2 border-2 border-amber-200 m-2 grid grid-row'>
-                        {/* game status info */}
-                        <div className='border-2'>
-                            <p>{Game.shortName}</p>
-                            <p>time: {Game.status.displayClock}</p>
-                            <p>period: {Game.status.period}</p>
-                        </div>
+                    <div key={Game.id} className='p-2 border-2 border-amber-200 m-2 grid rounded-xl'>
 
                         {/* game stats */}
                         {Game.competitions.map((competition, i) => (
-                            <div key={i} className='mx-3'>
+                            <div key={i} className='mx-3 flex flex-row'>
                                 {competition.competitors.map((competitor, j) => (
-                                    <div key={j}>
-                                        <p>{competitor.team.displayName}: {competitor.score} </p>
+                                    <div key={j} className='border-2 flex flex-row p-3 justify-items-center gap-2'>
+                                        <Image src={competitor.team.logo} width={30} height={30} alt={competitor.team.displayName + "'s logo"}/>
+                                        <p className='items-center'> {competitor.score} </p>
                                     </div>
                                 ))}
                             </div>
                         ))}
+
+                        {/* game status info */}
+                        <div className='border-2 flex justify-center gap-2 max-h-28'>
+                            <p>time: {Game.status.displayClock}</p>
+                            <p>Q: {Game.status.period}</p>
+                        </div>
+
                     </div>
                 ))}
             </div>
@@ -70,13 +74,18 @@ export default function GameList(): ReactElement {
     )
 }
 
-async function fetchGames(): Promise<Game[]> {
+async function fetchGames({League, Date}: LeagueProp): Promise<Game[]> {
+    // params: league, to change the sport
+    // date, to view the scores of a specific date, or upcoming games.
+
     try {
         // Base API: http://site.api.espn.com/apis/site/v2/sports/ -- the rest are extensions
         // mlb team path = 'baseball/mlb/teams'
         // nhl  team path =' '/hockey/nhl/teams'
         // for scores, they're all structured the same. just "scoreboard after the league" eg. "/hockey/nhl/scoreboard"
-        const api = 'http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard'
+        // base api structure:
+        // const api = `http://site.api.espn.com/apis/site/v2/sports/${League}/scoreboard/${Date}`
+        const api = "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard"
         const response = await fetch(api)
         const data = await response.json()
         const teams: Game[] = data.events

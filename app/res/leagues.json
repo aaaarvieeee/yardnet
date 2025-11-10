@@ -1,0 +1,57 @@
+[
+  {
+    "id": "nba",
+    "leagueName": "National Basketball Association",
+    "endpoint": "basketball/nba"
+  },
+  {
+    "id": "wnba",
+    "leagueName": "Women's National Basketball Association",
+    "endpoint": "basketball/wnba"
+  },
+  {
+    "id": "nfl",
+    "leagueName": "National Football League",
+    "endpoint": "football/nfl"
+  },
+  {
+    "id": "ncaaf",
+    "leagueName": "College Football",
+    "endpoint": "football/college-football"
+  },
+  {
+    "id": "mlb",
+    "leagueName": "Major League Baseball",
+    "endpoint": "baseball/mlb"
+  },
+  {
+    "id": "nhl",
+    "leagueName": "National Hockey League",
+    "endpoint": "hockey/nhl"
+  },
+  {
+    "id": "epl",
+    "leagueName": "English Premier League",
+    "endpoint": "soccer/eng.1"
+  },
+  {
+    "id": "laliga",
+    "leagueName": "La Liga",
+    "endpoint": "soccer/esp.1"
+  },
+  {
+    "id": "bundesliga",
+    "leagueName": "Bundesliga",
+    "endpoint": "soccer/ger.1"
+  },
+  {
+    "id": "seriea",
+    "leagueName": "Serie A",
+    "endpoint": "soccer/ita.1"
+  },
+  {
+    "id": "ligue1",
+    "leagueName": "Ligue 1",
+    "endpoint": "soccer/fra.1"
+  }
+]
