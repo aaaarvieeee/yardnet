@@ -26,7 +26,7 @@ interface Game {
 
 interface LeagueProp {
     League: string
-    Date?: string
+    Date: string
 }
 
 export default function GameList({League, Date}: LeagueProp): ReactElement {
@@ -38,13 +38,12 @@ export default function GameList({League, Date}: LeagueProp): ReactElement {
             setGameList(data);
         }
         loadGamesList();
-        const refreshInterval = setInterval(loadGamesList, 5000)
+        const refreshInterval = setInterval(loadGamesList, 7000)
         return () => clearInterval(refreshInterval)
     }, [League, Date]);
 
     return (
         <div>
-            <h1>teams:</h1>
             <div className='grid grid-cols-2 p-2 mx-12 border-2 border-e-red-50'>
                 {gameList.map((Game) => (
                     <div key={Game.id} className='p-2 border-2 border-amber-200 m-2 grid rounded-xl'>
@@ -84,8 +83,9 @@ async function fetchGames({League, Date}: LeagueProp): Promise<Game[]> {
         // nhl  team path =' '/hockey/nhl/teams'
         // for scores, they're all structured the same. just "scoreboard after the league" eg. "/hockey/nhl/scoreboard"
         // base api structure:
-        // const api = `http://site.api.espn.com/apis/site/v2/sports/${League}/scoreboard/${Date}`
-        const api = "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard"
+        const api = `http://site.api.espn.com/apis/site/v2/sports/${League}/scoreboard${Date}`
+        // const api = "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard"
+        console.log(api)
         const response = await fetch(api)
         const data = await response.json()
         const teams: Game[] = data.events

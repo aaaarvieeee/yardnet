@@ -18,7 +18,6 @@ export default function LeagueCarousel({ leagues, onLeagueSelect }: LeaguesUtilP
                     onClick={() => onLeagueSelect(leagueItem.endpoint)}>
                     <div className="text-sm">
                         <p>{leagueItem.id}</p>
-                        {/* <p>{leagueItem.leagueName}</p> */}
                     </div>
                 </div>
             ))}

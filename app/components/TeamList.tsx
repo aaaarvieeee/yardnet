@@ -18,12 +18,12 @@ interface LeagueProp {
     }
 }
 
-export default function TeamList({League}: LeagueProp): ReactElement {
+export default function TeamList({ League }: LeagueProp): ReactElement {
     const [teamList, setTeamList] = useState<Team[]>([])
-    
-    
+
+
     useEffect(() => {
-        const loadTeamsList = async() => {
+        const loadTeamsList = async () => {
             const data = await fetchTeams()
             setTeamList(data);
         }
@@ -34,14 +34,14 @@ export default function TeamList({League}: LeagueProp): ReactElement {
         <div>
             <h1>teams:</h1>
             <div className='grid grid-cols-3 p-2 mx-12'>
-                    {
-                        teamList.map((Team) => (
-                            <div key={Team.team.id}>
-                                <p>{Team.team.displayName}</p>
-                                <p>{Team.team.abbreviation}</p>
-                            </div>
-                        ))
-                    }
+                {
+                    teamList.map((Team) => (
+                        <div key={Team.team.id}>
+                            <p>{Team.team.displayName}</p>
+                            <p>{Team.team.abbreviation}</p>
+                        </div>
+                    ))
+                }
             </div>
         </div>
     )
