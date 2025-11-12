@@ -44,15 +44,15 @@ export default function GameList({League, Date}: LeagueProp): ReactElement {
 
     return (
         <div>
-            <div className='grid grid-cols-2'>
+            <div className='grid grid-cols-2 max-w-full'>
                 {gameList.map((Game) => (
-                    <div key={Game.id} className=' card p-2 border-2 border-amber-200 m-1 grid rounded-xl'>
+                    <div key={Game.id} className='card max-w-full items-center justify-center p-2 border-2 m-1 grid'>
 
                         {/* game stats */}
                         {Game.competitions.map((competition, i) => (
-                            <div key={i} className='card-body flex flex-row p-0'>
+                            <div key={i} className='card-body flex flex-row p-0 mask'>
                                 {competition.competitors.map((competitor, j) => (
-                                    <div key={j} className='border-2 flex flex-row p-1 justify-items-center gap-1'>
+                                    <div key={j} className='flex flex-row p-1 items-center justify-center gap-1'>
                                         <Image src={competitor.team.logo} width={25} height={10} alt={competitor.team.displayName + "'s logo"}/>
                                         <p className='items-center'> {competitor.score} </p>
                                     </div>
@@ -61,7 +61,7 @@ export default function GameList({League, Date}: LeagueProp): ReactElement {
                         ))}
 
                         {/* game status info */}
-                        <div className='border-2 flex justify-center gap-2 max-h-10 text-xs w-full'>
+                        <div className='flex justify-center gap-2 max-h-10 sm:text-m md:text-md lg:text-xs w-full'>
                             <p>time: {Game.status.displayClock}</p>
                             <p>Q: {Game.status.period}</p>
                         </div>

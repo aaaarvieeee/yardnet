@@ -16,14 +16,13 @@ export default function DateCarousel({ onDateSelect }: DateProp): ReactElement {
     const DateArray = getDatesArray()
 
     return (
-        <div className="carousel carousel-center flex flex-row justify-items-center items-center max-w-50 overflow-x-auto snap-x snap-mandatory scroll-smooth">
+        <div className="carousel carousel-center flex flex-row justify-items-center items-center max-w-1/5 overflow-x-auto snap-x snap-mandatory scroll-smooth mask-x-from-70% px-1/3">
             {
                 DateArray.map((date) => (
                     <div key={date.CleanedDate}
                         className="carousel-item mx-1">
                         <p onClick={() => onDateSelect(date.Link)}
-                            className="hover:underline hover:cursor-pointer text-xs snap-center"
-                        >
+                            className="hover:underline hover:cursor-pointer text-2xl snap-caenter">
                             {date.FormattedDate}
                         </p>
                     </div>
@@ -43,7 +42,7 @@ function getDatesArray(): DateItem[] {
         const DateArray: DateItem[] = []
 
         //instead of Date(), use it in combination of Intl.DateTimeFormat("en-US").format.(date)
-        for (let i = -5; i < 5; i++) {
+        for (let i = -14; i < 14; i++) {
             const differentDatePlaceholder = new Date(Today)
             differentDatePlaceholder.setDate(Today.getDate() + i)
 
@@ -74,8 +73,8 @@ function transmuteDate({ DateValue }: { DateValue: Date }): DateItem {
     const cleanDatePlaceholder = Intl.DateTimeFormat("en-CA").format(DateValue);
     // returns date in format string: "YYYY-MM-DD"
     const cleanDate = cleanDatePlaceholder
-    .split("-")
-    .join("")
+        .split("-")
+        .join("")
 
 
     const formatDate = Intl.DateTimeFormat("en-CA", {
@@ -83,12 +82,12 @@ function transmuteDate({ DateValue }: { DateValue: Date }): DateItem {
     }).format(DateValue);
     // returns date in format string: "Nov 10, 2025"
 
-    
-    
+
+
     const apiEndpointExtension = "?dates="
     const link = apiEndpointExtension + cleanDate
-    
-    
+
+
     return {
         FormattedDate: formatDate,
         CleanedDate: cleanDate,
