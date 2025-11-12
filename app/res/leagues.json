@@ -10,16 +10,6 @@
     "endpoint": "basketball/wnba"
   },
   {
-    "id": "nfl",
-    "leagueName": "National Football League",
-    "endpoint": "football/nfl"
-  },
-  {
-    "id": "ncaaf",
-    "leagueName": "College Football",
-    "endpoint": "football/college-football"
-  },
-  {
     "id": "mlb",
     "leagueName": "Major League Baseball",
     "endpoint": "baseball/mlb"
@@ -28,6 +18,16 @@
     "id": "nhl",
     "leagueName": "National Hockey League",
     "endpoint": "hockey/nhl"
+  },
+  {
+    "id": "nfl",
+    "leagueName": "National Football League",
+    "endpoint": "football/nfl"
+  },
+  {
+    "id": "ncaaf",
+    "leagueName": "College Football",
+    "endpoint": "football/college-football"
   },
   {
     "id": "epl",
