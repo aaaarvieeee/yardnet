@@ -8,6 +8,7 @@ import GameList from "./components/GameList";
 import LeagueCarousel from "./components/LeagueCarousel";
 import Leagues from "./res/leagues.json"
 import DateCarousel from "./components/DateCarousel";
+import NewsCard from "./components/NewsCard";
 
 export default function Home() {
   const [selectedLeague, setSelectedLeague] = useState<string>("basketball/nba");
@@ -20,29 +21,32 @@ export default function Home() {
 
   const handleDateSelect = (date: string) => {
     setDate(date)
-    console.log(date)
   }
-  
+
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <div className="flex min-h-screen overflow-x-hidden bg-slate-950 items-center justify-start font-sans ">
+      <main className="flex flex-col min-h-screen min-w-screen items-center justify-start px-10 py-5 bg-slate-950 border text-white">
 
         {/* League Carousel */}
-        <div>
+        <div className="mb-3 flex items-center justify-center">
           <LeagueCarousel leagues={leaguesListUtil} onLeagueSelect={handleLeagueSelect} />
         </div>
 
         {/* Date Carousel */}
-        <div>
-          <DateCarousel onDateSelect={handleDateSelect}/>
+        <div className="flex items-center justify-center pb-2">
+          <DateCarousel onDateSelect={handleDateSelect} />
         </div>
 
-        {/* <TeamList League={{}}/> */}
+        {/* Game List/> */}
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <GameList League={selectedLeague} Date={date} />
         </div>
 
+        {/* league news */}
+        {/* <div>
+          <NewsCard League={selectedLeague}/>
+        </div> */}
       </main>
     </div>
   );

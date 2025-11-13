@@ -13,8 +13,8 @@
     "windows": [
       {
         "title": "yardnet",
-        "width": 800,
-        "height": 700,
+        "width": 400,
+        "height": 300,
         "resizable": false,
         "fullscreen": false,
         "decorations": true,

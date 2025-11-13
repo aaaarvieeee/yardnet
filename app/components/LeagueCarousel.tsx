@@ -11,14 +11,16 @@ export default function LeagueCarousel({ leagues, onLeagueSelect }: LeaguesUtilP
     const leaguesList = [...leagues]
 
     return (
-        <div className="CarouselWrapper  p-3 flex flex-row justify-items-center border-2 items-center mx-10">
+        <div className="carousel carousel-center max-w-1/3 overflow-x-auto snap-x snap-mandatory scroll-smooth mask-x-from-60">
             {leaguesList.map((leagueItem) => (
                 <div key={leagueItem.id}
-                    className="CarouselItemWrapper border-2 border-white mx-2 hover:underline hover:bg-sky-900 hover:cursor-pointer"
+                    className="carousel-item border-b-white mx-1 hover:underline hover:bg-sky-900 hover:cursor-pointer"
                     onClick={() => onLeagueSelect(leagueItem.endpoint)}>
-                    <div className="text-sm">
-                        <p>{leagueItem.id}</p>
-                    </div>
+                    <p
+                        className="text-4xl"
+                    >
+                        {leagueItem.id}
+                    </p>
                 </div>
             ))}
         </div>
